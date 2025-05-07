@@ -1,0 +1,576 @@
+/* General Styles */
+:root {
+    --primary-color: #007bff; /* Blue */
+    --secondary-color: #6c757d; /* Gray */
+    --background-light: #ffffff;
+    --background-dark: #212529;
+    --text-light: #f8f9fa;
+    --text-dark: #343a40;
+    --nav-height: 70px;
+    --nav-scroll-bg: rgba(255, 255, 255, 0.98); /* Slightly more opaque on scroll */
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    --card-hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    --hero-gradient: linear-gradient(135deg, #2b3a4a 0%, #212529 100%); /* Subtle dark gradient */
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-height); /* Offset for fixed navbar */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-top: var(--nav-height); /* Add padding to body to prevent content overlap */
+    box-sizing: border-box;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* Container for centering content */
+.container {
+    max-width: 1140px; /* Slightly wider container */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+
+h1, h2, h3 {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+h2 {
+    margin-bottom: 50px; /* Increased space */
+    font-size: 2.4em; /* Slightly larger */
+    position: relative;
+    display: inline-block; /* Allows pseudo-element positioning */
+}
+
+/* Optional: Underline effect for section titles */
+h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 10px auto 0; /* Center the line */
+}
+
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+/* Navigation Bar */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Fixed position */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    z-index: 1000; /* Ensure it's above other content */
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Add transition */
+}
+
+/* Add class for scrolled state */
+.navbar.scrolled {
+    background-color: var(--nav-scroll-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow on scroll */
+}
+
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-logo {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+.nav-logo:hover {
+    color: var(--primary-color);
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li a {
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-menu li a::after { /* Refined underline effect */
+    content: '';
+    position: absolute;
+    bottom: -5px; /* Lower the line slightly */
+    left: 50%; /* Start from center */
+    transform: translateX(-50%); /* Center the line */
+    width: 0;
+    height: 3px; /* Slightly thicker */
+    background-color: var(--primary-color);
+    border-radius: 2px; /* Rounded ends */
+    transition: width 0.3s ease;
+}
+
+.nav-menu li a:hover,
+.nav-menu li a.active {
+    color: var(--primary-color);
+}
+
+.nav-menu li a:hover::after,
+.nav-menu li a.active::after {
+    width: 60%; /* Make underline shorter than text */
+}
+
+
+.section {
+    padding: 100px 20px; /* Increased padding */
+    /* max-width: 1100px; */ /* Use container class inside sections instead */
+    /* margin: 0 auto; */
+    text-align: center;
+}
+
+/* Alternating Section Backgrounds */
+#about, #projects {
+    background-color: var(--background-light); /* Default white */
+}
+#skills, #contact {
+    background-color: #f8f9fa; /* Off-white */
+}
+#contact { /* Keep contact dark */
+    background-color: var(--background-dark);
+    color: var(--text-light);
+}
+#contact h2 {
+    color: var(--text-light);
+}
+#contact h2::after { /* Adjust underline color for dark background */
+     background-color: var(--primary-color);
+}
+
+/* About Section Enhancement */
+#about .container { /* Target container specifically in #about */
+    max-width: 1140px; /* Ensure container width */
+}
+
+.about-content {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    gap: 50px; /* Space between image and text */
+    margin-top: 40px; /* Space below heading */
+    text-align: left; /* Align text to the left */
+}
+
+.about-image-placeholder {
+    overflow: hidden;
+    flex-shrink: 0; /* Prevent image placeholder from shrinking */
+    width: 250px; /* Fixed width */
+    height: 250px; /* Fixed height */
+    background-color: #e0e0e0; /* Placeholder background */
+    border-radius: 50%; /* Make it circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary-color);
+    font-style: italic;
+    font-size: 0.9em;
+    /* Add a subtle shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-text {
+    flex-grow: 1; /* Allow text to take remaining space */
+}
+
+.about-text p {
+    margin-bottom: 1.5em; /* Space between paragraphs */
+    font-size: 1.05em; /* Slightly larger text */
+}
+
+.about-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Optional Button Styling (if resume link is used) */
+.btn.btn-secondary {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 25px;
+    background-color: var(--secondary-color);
+    color: var(--text-light);
+    border-radius: 25px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+
+/* Hero Section */
+.hero {
+    background-image: var(--hero-gradient); /* Use gradient */
+    color: var(--text-light);
+    padding: 150px 20px;
+    text-align: center;
+    min-height: calc(100vh - var(--nav-height)); /* Full viewport height minus navbar */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 850px; /* Slightly wider */
+}
+
+.hero h1 {
+    font-size: 4em; /* Even larger */
+    margin-bottom: 20px; /* More space */
+    color: var(--text-light);
+    font-weight: 700;
+    animation: fadeInDown 1s ease-out;
+}
+
+.hero p {
+    font-size: 1.4em; /* Larger paragraph */
+    margin-bottom: 45px; /* More space */
+    font-weight: 300;
+    animation: fadeInUp 1s ease-out 0.5s;
+    animation-fill-mode: backwards;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 16px 40px; /* Slightly larger */
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Enhanced shadow */
+    animation: fadeInUp 1s ease-out 1s;
+    animation-fill-mode: backwards;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-4px); /* More lift */
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4); /* Stronger shadow on hover */
+    text-decoration: none;
+}
+
+/* Scroll Down Arrow in Hero */
+.scroll-down-arrow {
+    position: absolute;
+    bottom: 30px; /* Position near the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    opacity: 0; /* Start hidden */
+    animation: fadeInUp 1s ease-out 1.5s forwards; /* Delayed fade in */
+}
+
+.scroll-down-arrow span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-left: 2px solid var(--text-light);
+    border-bottom: 2px solid var(--text-light);
+    transform: rotate(-45deg);
+    animation: bounce 2s infinite; /* Bouncing animation */
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) rotate(-45deg);
+    }
+    40% {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+    60% {
+        transform: translateY(-5px) rotate(-45deg);
+    }
+}
+
+
+/* Keyframes for Hero Animations (already defined, ensure they exist) */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Skills Section */
+/* #skills background handled by alternating section styles */
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px; /* More space */
+}
+
+.skill-item {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 12px 24px; /* Larger padding */
+    border-radius: 30px; /* Fully rounded */
+    font-size: 1em;
+    font-weight: 500; /* Slightly bolder */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-flex; /* For potential icon alignment */
+    align-items: center;
+    gap: 8px; /* Space between icon and text if used */
+}
+
+.skill-item:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); /* Slight scale effect */
+}
+
+/* Projects Section */
+/* #projects background handled by alternating section styles */
+
+.projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Slightly larger min size */
+    gap: 40px;
+    margin-top: 50px; /* More space */
+    text-align: left;
+}
+
+.project-card {
+    background-color: var(--background-light);
+    padding: 0; /* Remove padding, apply to content */
+    border-radius: 12px; /* More rounded */
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none; /* Remove border */
+    overflow: hidden; /* Ensure image placeholder fits */
+    display: flex;
+    flex-direction: column;
+}
+
+.project-image-placeholder {
+    height: 200px; /* Fixed height for placeholder */
+    width: 800px;
+    background-color: #e9ecef; /* Placeholder color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--secondary-color);
+    font-style: italic;
+    max-width: 400px;
+    max-height: 800px;
+    overflow: hidden;
+   
+}
+
+.project-card-content {
+    padding: 25px; /* Add padding to content area */
+    flex-grow: 1; /* Allow content to fill space */
+    display: flex;
+    flex-direction: column;
+}
+
+
+.project-card:hover {
+    transform: translateY(-10px); /* Even more lift */
+    box-shadow: var(--card-hover-shadow);
+}
+
+.project-card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    font-size: 1.4em; /* Slightly larger */
+}
+
+.project-card p {
+    margin-bottom: 20px;
+    flex-grow: 1; /* Push links to bottom */
+}
+
+.project-card-links {
+    margin-top: auto; /* Push links to bottom */
+}
+
+.project-card a {
+    font-weight: 600;
+    margin-right: 5px; /* Space between links */
+}
+
+
+/* Contact Section */
+/* #contact background handled by alternating section styles */
+
+#contact p {
+    font-size: 1.1em;
+    max-width: 600px; /* Limit width of text */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#contact a {
+    color: var(--primary-color);
+    font-weight: 600;
+    border-bottom: 2px solid transparent; /* Prepare for hover effect */
+    transition: border-bottom-color 0.3s ease;
+}
+
+#contact a:hover {
+    color: #33a0ff;
+    border-bottom-color: #33a0ff; /* Underline on hover */
+}
+
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 0;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* Scroll Reveal Animation (already defined, ensure it exists) */
+.section {
+    opacity: 0;
+    transform: translateY(40px); /* Increase translation */
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out; /* Slower */
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .nav-menu {
+        gap: 20px;
+    }
+    .about-content {
+        gap: 30px; /* Reduce gap */
+    }
+    .about-image-placeholder {
+        width: 200px; /* Smaller image */
+        height: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --nav-height: 60px;
+    }
+    body {
+        padding-top: var(--nav-height);
+    }
+    .hero h1 {
+        font-size: 2.8em;
+    }
+    .hero p {
+        font-size: 1.2em;
+    }
+    h2 {
+        font-size: 2em;
+    }
+    .section {
+        padding: 80px 15px;
+    }
+    .projects-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    /* Stack About Me section */
+    .about-content {
+        flex-direction: column; /* Stack image and text */
+        align-items: center; /* Center items when stacked */
+        text-align: center; /* Center text when stacked */
+    }
+    .about-image-placeholder {
+        margin-bottom: 30px; /* Add space below image when stacked */
+        width: 180px; /* Adjust size for mobile */
+        height: 180px;
+    }
+    .about-text {
+        max-width: 500px; /* Limit text width */
+        margin: 0 auto; /* Center text block */
+    }
+
+
+    /* Basic mobile nav toggle (requires JS) */
+    .nav-menu {
+        /* Example: Hide menu by default */
+        /* display: none; */
+        /* position: absolute; top: var(--nav-height); left: 0; width: 100%; background: white; flex-direction: column; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
+    }
+    /* Add a hamburger menu icon/button */
+    /* .nav-toggle { display: block; } */
+}
+.project-image-placeholder img{
+    
+    height: auto;
+    display: block;
+    width: 400px;
+    
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+   
+}
+.about-image-placeholder img{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
